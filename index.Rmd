@@ -1,0 +1,30 @@
+---
+title: "Let's Explore Statistics"
+subtitle: "version 0.1"
+author: "Colin Quirk"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook: default
+github-repo: https://github.com/colinquirk/LetsExploreStatistics
+twitter-handle: ColinTQuirk
+---
+
+# Preface {-}
+
+Many researchers learn statistics as a series of flowcharts and heuristics without ever diving into the deep mathematical concepts that underlie the choices they have been taught to make. I think everyone wishes they understood statistics better but it is easy to quickly become overwhelmed with equations and proofs. Most of my knowledge in both math and statistics is self-taught through experience and exploration. This book is an organized assortment of simulations and examples that have personally helped me think through these difficult topics.
+
+## My Inspiration {-}
+
+Inspiration for this book comes from A. Solomon Kurz's excellent [Statistical Rethinking with brms, ggplot2, and the tidyverse](https://bookdown.org/connect/#/apps/1850/access) project. While my book is not specifically designed to companion any single textbook, the idea that you could read this along with another source comes directly from Kurz. I am also generally inspired by how generous Kurz is for releasing such an excellent resource for free. Finally, I also directly used Kurz's book as an example for how to use bookdown.
+
+The idea for using code and simulation as an alternative to proofs come from [Jeremy Howard and fast.ai's deep learning course](course.fast.ai) and OpenIntro's [Introductory Statistics with Randomization and Simulation](https://www.openintro.org/book/isrs/) by Diez, Barr, and Çetinkaya-Rundel.
+
+## How to Read this Book {-}
+
+While you are welcome to read this book front to back it is not necessary. Perhaps you feel you have a good understanding of the central limit theorem. If so, I encourage you to skip over that content completely. Even within chapters you are welcome to skip to a particular subtitle related to a question that you have. The goal of this book is not to teach you everything there is to know about statistics, but rather to fill in gaps in conceptual understanding that persist after reading through a true textbook or taking a course. You should certainly not rely on this book to teach you concepts in full, as I am nowhere near qualified to provide that sort of resource. But, if a particular concept you are learning about isn't quite clicking I hope this book can help you.
+
+## Notes {-}
+
+In general, code is hidden in favor of a clean presentation. However, if you are interested in exploring the source it is available [here](https://github.com/colinquirk/LetsExploreStatistics).
