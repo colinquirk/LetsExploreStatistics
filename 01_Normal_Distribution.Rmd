@@ -1,0 +1,29 @@
+---
+title: "Chapter 1 - Let's Explore the Normal Distribution"
+author: "Colin Quirk"
+date: "`r format(Sys.Date())`"
+output:
+  github_document
+---
+
+# Let's Explore the Normal Distribution
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+The normal or Gaussian distribution is extremely important as it shows up all the time in nature. The normal distribution is controlled by two parameters, a mean μ and a standard deviation σ. The standard normal is defined as a normal distribution with μ=0 and σ=1. The importance of this special case will be discussed at the end of this chapter, but intuitively you can think of every other normal distribution as a mutation of the standard normal (where the mutation is defined by μ and σ).
+
+You probably have explored the normal distribution before. Still, this is a great opportunity for you to play around with a widget in the context of this book. Below, you can adjust the parameters of the normal distribution and compare it to the standard normal.
+
+As an aside, all the widgets in the book are designed such that you can interact with them without leaving the bookdown page. Because the widgets are all shiny apps, they must be hosted (I am hosting them for free on shinyapps.io). If you are on a small screen you may have an easier time interacting with them on a page with more room so I will always include a link to view the widget in full screen.
+
+[View Widget in Full Screen](https://colinquirk.shinyapps.io/01_normal_parameters/)
+
+```{r}
+knitr::include_app('https://colinquirk.shinyapps.io/01_normal_parameters/', height=750)
+```
+
+## Properties of the Normal Distribution
+
+
