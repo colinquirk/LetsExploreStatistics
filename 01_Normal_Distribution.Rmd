@@ -8,20 +8,23 @@ output:
 
 # Let's Explore the Normal Distribution
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.1/jstat.js"></script>
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+library(r2d3)
+library(htmlwidgets)
+
+opts_chunk$set(echo = FALSE)
 ```
+
 
 The normal or Gaussian distribution is extremely important as it shows up all the time in nature. The normal distribution is controlled by two parameters, a mean μ and a standard deviation σ. The standard normal is defined as a normal distribution with μ=0 and σ=1. The importance of this special case will be discussed towards the end of this chapter, but intuitively you can think of every other normal distribution as a mutation of the standard normal (where the mutation is defined by μ and σ).
 
 You probably have explored the normal distribution before. Still, this is a great opportunity for you to play around with a widget in the context of this book. Below, you can adjust the parameters of the normal distribution and compare it to the standard normal.
 
-As an aside, all the widgets in the book are designed such that you can interact with them without leaving the bookdown page. Because the widgets are all shiny apps, they must be hosted (I am hosting them for free on shinyapps.io). If you are on a small screen you may have an easier time interacting with them on a page with more room so I will always include a link to view the widget in full screen.
-
-[View Widget in Full Screen](https://colinquirk.shinyapps.io/01_normal_parameters/)
-
-```{r}
-knitr::include_app('https://colinquirk.shinyapps.io/01_normal_parameters/', height=750)
+```{r normal_parameters}
+r2d3(script="widgets/01-normal_parameters.js", width = 400, height = 600)
 ```
 
 There's a few things that hopefully stick out after playing around with the parameters of the normal distribution. The first is that the mean shifts the distribution along the x axis. In contrast, the standard deviation affects the shape such that the larger the σ, the wider the shape. The important idea here is that the parameters are totally independent from each other. Knowing the position tells you nothing about the shape and vice versa.
@@ -30,10 +33,8 @@ There's a few things that hopefully stick out after playing around with the para
 
 The normal distribution is extremely common in nature. In order to demonstrate why this is the case, we will perform a simulation. (The idea for this example came from McElreath's Statistical Rethinking, which I highly recommend you both read and watch in lecture form on youtube). In our example, we will pretend that you are holding a box of 1000 frogs in a long hallway. Unfortunately, you dropped the box and the frogs all fell on the ground. Each second, each frog will randomly decide to hop either forwards or backwards. In the widget below, you can progress time with the "Progress..." button or reset the simulation with the "Reset" button. Plotted are the physical location of each frog, a histogram of the number of hops away from the starting point each frog is, and a QQ plot comparing the distribution to theoretical normal. If you have never seen a QQ before that is ok, the important thing to note is that the closer the points get to falling on the diagonal line the closer the distribution is to normal. Step through the simulation a few times and observe the results.
 
-[View Widget in Full Screen](https://colinquirk.shinyapps.io/01_frog_simulation/)
-
 ```{r}
-knitr::include_app('https://colinquirk.shinyapps.io/01_frog_simulation/', height=1300)
+
 ```
 
 After clicking through time about 10 times, you might be surprised to see how quickly the normal distribution appears. One thing to note is that, because we are working with integer data, the points in the QQ plot show a sort of step function. Still, they end up generally aligned with the line depicting normality after just a few cycles. Why is this? And what does this have to do with the normal distribution appearing in nature?
