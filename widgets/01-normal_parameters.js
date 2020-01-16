@@ -1,69 +1,57 @@
-var array1 = Random_normal_Dist(30, 15);
-var array2 = Random_normal_Dist(30, 10);
+var standard_normal = [];
+var user_normal = [];
 
-var x = d3.scaleLinear()
-  .rangeRound([0, width]);
+user_normal_mean = 2;
+user_normal_sd = 3;
 
-//Min q
-var d1 = d3.min(array1, function (d) { return d.q; });
-var d2 = d3.min(array2, function (d) { return d.q; });
-var min_d = d3.min([d1, d2]);
+for (i=-10; i<=10; i=i+0.1) {
+  standard_normal.push({x:i, y:jStat.normal.pdf(i, 0, 1)});
+  user_normal.push({x:i, y:jStat.normal.pdf(i, user_normal_mean, user_normal_sd)});
+}
 
-//Max q
-d1 = d3.max(array1, function (d) { return d.q; });
-d2 = d3.max(array2, function (d) { return d.q; });
-var max_d = d3.max([d1, d2]);
+const margin = {top: 20, bottom: 20, left: 30, right: 20};
+var width = width - margin.left - margin.right;
+var height = height - margin.top - margin.bottom;
 
-//Max p
-d1 = d3.max(array1, function (d) { return d.p; });
-d2 = d3.max(array2, function (d) { return d.p; });
-var max_p = d3.max([d1, d2]);
+const g = svg.append('g')
+  .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-x.domain([min_d, max_d]).nice;
+const xscale = d3.scaleLinear()
+  .domain([-10, 10])
+  .range([0, width]);
 
-var y = d3.scaleLinear()
-  .domain([0, max_p])
+const yscale = d3.scaleLinear()
+  .domain([0, 1])
   .range([height, 0]);
 
-svg
-  .append("g")
+const xaxis = d3.axisBottom().scale(xscale);
+const yaxis = d3.axisLeft().scale(yscale);
 
-var gX = svg.append("g")
-  .attr("class", "x axis")
-  .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x));
+g.append('g').attr('transform',`translate(0,${height})`).call(xaxis);
+g.append('g').call(yaxis);
 
 var line = d3.line()
-  .x(function (d) { return x(d.q); })
-  .y(function (d) { return y(d.p); });
+  .x(function(d) { return xscale(d.x); })
+  .y(function(d) { return yscale(d.y); })
+  .curve(d3.curveMonotoneX);
 
-svg.append("path")
-  .datum(array1)
-  .attr("d", line)
-  .style("fill", "#fdae61")
-  .style("opacity", "0.5")
+g.append("path")
+  .attr("class", "dist stand_dist")
+  .datum(standard_normal)
+  .attr("d", line);
+
+g.append("path")
+  .attr("class", "dist user_dist")
+  .datum(user_normal)
+  .attr("d", line);
+
+g.selectAll(".dist")
+  .style("fill-opacity", 0.25)
   .style("stroke-width", 2)
   .style("stroke", "black");
 
-svg.append("path")
-  .datum(array2)
-  .attr("d", line)
-  .style("fill", "#4393c3")
-  .style("opacity", "0.5")
-  .style("stroke-width", 2)
-  .style("stroke", "black");
+g.select(".stand_dist")
+  .style("fill", "blue");
 
-
-function Random_normal_Dist(mean, sd) {
-    data = [];
-    for (var i = mean - 4 * sd; i < mean + 4 * sd; i += 1) {
-        q = i;
-        p = jStat.normal.pdf(i, mean, sd);
-        arr = {
-            "q": q,
-            "p": p
-        };
-        data.push(arr);
-    }
-    return data;
-}
+g.select(".user_dist")
+  .style("fill", "red");
