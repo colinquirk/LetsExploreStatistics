@@ -101,5 +101,10 @@ d3.selectAll('.slider')
 // Fix form location
 d3.select('#standardNormalForm')
   .style('position', 'absolute')
-  .style('margin-left', `${2*width/3}px`)
+  .style('margin-left', `${width}px`)
   .style('margin-top', `${margin.top}px`);
+
+// Make labels nice
+d3.selectAll('label')
+  .style('font-family', 'Helvetica Neue, Helvetica, Arial, sans-serif')
+  .style('font-size', '1.2em');
