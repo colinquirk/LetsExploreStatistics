@@ -1,6 +1,3 @@
 book_filename: "LetsExploreStatistics"
-language:
-  ui:
-    chapter_name: "Chapter "
 delete_merged_file: true
 new_session: yes
