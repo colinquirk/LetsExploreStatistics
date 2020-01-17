@@ -13,7 +13,7 @@ resetFrogs = function() {
 getHops = function() {
   var hops = [];
   for(i=0; i<frogs.length; i++) {
-    hops.push((Math.random() < 0.5) ? -1 : 1);
+    hops.push(Math.floor(Math.random() * 3) - 1);
   }
   return hops;
 };
@@ -21,13 +21,15 @@ getHops = function() {
 updateFrogs = function(hops) {
   for(i=0; i<frogs.length; i++) {
     frogs[i].x = frogs[i].x + hops[i];
+    frogs[i].x = d3.min([frogs[i].x, 9]);
+    frogs[i].x = d3.max([frogs[i].x, -9]);
   }
 };
 
 resetFrogs();
 
 // Set up margin
-const margin = {top: 5, bottom: 30, left: 35, right: 20};
+const margin = {top: 5, bottom: 30, left: 40, right: 20};
 var width = width - margin.left - margin.right;
 var height = height - margin.top - margin.bottom;
 
@@ -36,7 +38,7 @@ const pointPlot = svg.append('g')
   .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
 const xscale = d3.scaleLinear()
-  .domain([-15, 15])
+  .domain([-10, 10])
   .range([0, (width/2) - margin.left]);
 
 const yscale = d3.scaleLinear()
@@ -50,7 +52,7 @@ pointPlot.append('g').attr('transform',`translate(0,${height})`).call(xaxis);
 pointPlot.append('g').call(yaxis);
 
 // Add frog points
-var xvalue = function(d) { return d3.max([d3.min([d.x, 15]), -15]);};
+var xvalue = function(d) { return d.x;};
 var yvalue = function(d) { return d.y;};
 
 var xmap = function(d) { return xscale(xvalue(d));};
@@ -61,7 +63,7 @@ pointPlot.selectAll(".dot")
   .enter().append("circle")
   .attr('class', 'dot')
   .attr("fill", frogGreen)
-  .attr("r", 3.5)
+  .attr("r", 2)
   .attr("cx", xmap)
   .attr("cy", ymap);
 
@@ -76,7 +78,7 @@ histPlot.append('g').call(yaxis);
 var hist = d3.histogram()
   .value((d) => {return d.x;})
   .domain(xscale.domain())
-  .thresholds(10);
+  .thresholds(21);
 
 var bins = hist(frogs);
 
@@ -87,7 +89,7 @@ histPlot
     .attr("width", function(d) {return xscale(d.x1) - xscale(d.x0) - 1;})
     .attr("height", function(d) {return height - yscale(d.length);})
     .attr("transform", function(d) {
-		  return "translate(" + xscale(d.x0 - 1) + "," + yscale(d.length) + ")"; })
+	    return "translate(" + xscale(d.x0 - 0.5) + "," + yscale(d.length) + ")"; })
     .attr("fill", frogGreen);
 
 // Add interactivity
@@ -107,5 +109,25 @@ d3.select('#progressFrogsButton')
       .transition()
       .attr("height", function(d) {return height - yscale(d.length);})
       .attr("transform", function(d) {
-		    return "translate(" + xscale(d.x0 - 1) + "," + yscale(d.length) + ")"; })
+		    return "translate(" + xscale(d.x0 - 0.5) + "," + yscale(d.length) + ")"; });
+  });
+
+d3.select('#resetFrogsButton')
+  .on('click', function() {
+    d3.event.preventDefault();
+    resetFrogs();
+    bins = hist(frogs);
+
+    pointPlot.selectAll(".dot")
+      .data(frogs)
+      .transition()
+      .attr("cx", xmap)
+      .attr("cy", ymap);
+
+    histPlot.selectAll("rect")
+      .data(bins)
+      .transition()
+      .attr("height", function(d) {return height - yscale(d.length);})
+      .attr("transform", function(d) {
+		    return "translate(" + xscale(d.x0 - 0.5) + "," + yscale(d.length) + ")"; });
   });
