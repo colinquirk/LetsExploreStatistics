@@ -48,6 +48,12 @@ The normal distribution is extremely common in nature. In order to demonstrate w
 ```{r frog_sim}
 r2d3(script="widgets/01-frog-sim.js", width = 800, height = 500)
 ```
+
+<form>
+  <button id='progressFrogsButton'>Progress</button>
+  <button id='resetFrogsButton'>Reset</button>
+</form>
+
 </center>
 
 You might be surprised to see how quickly the normal distribution appears. Why is this? And what does this have to do with the normal distribution appearing in nature?

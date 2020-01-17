@@ -5,10 +5,9 @@ var frogs = [];
 
 resetFrogs = function() {
   frogs = [];
-  for(i=0; i<50; i++) {
+  for(i=0; i<1000; i++) {
     frogs.push({x:0, y:i+1});
   }
-  return frogs;
 };
 
 getHops = function() {
@@ -19,22 +18,13 @@ getHops = function() {
   return hops;
 };
 
-updateFrogs = function(frogs, hops) {
+updateFrogs = function(hops) {
   for(i=0; i<frogs.length; i++) {
     frogs[i].x = frogs[i].x + hops[i];
   }
-  return frogs;
 };
 
-frogs = resetFrogs();
-hops = getHops();
-frogs = updateFrogs(frogs, hops);
-hops = getHops();
-frogs = updateFrogs(frogs, hops);
-hops = getHops();
-frogs = updateFrogs(frogs, hops);
-hops = getHops();
-frogs = updateFrogs(frogs, hops);
+resetFrogs();
 
 // Set up margin
 const margin = {top: 5, bottom: 30, left: 35, right: 20};
@@ -60,7 +50,7 @@ pointPlot.append('g').attr('transform',`translate(0,${height})`).call(xaxis);
 pointPlot.append('g').call(yaxis);
 
 // Add frog points
-var xvalue = function(d) { return d.x;};
+var xvalue = function(d) { return d3.max([d3.min([d.x, 15]), -15]);};
 var yvalue = function(d) { return d.y;};
 
 var xmap = function(d) { return xscale(xvalue(d));};
@@ -69,6 +59,7 @@ var ymap = function(d) { return yscale(yvalue(d));};
 pointPlot.selectAll(".dot")
   .data(frogs)
   .enter().append("circle")
+  .attr('class', 'dot')
   .attr("fill", frogGreen)
   .attr("r", 3.5)
   .attr("cx", xmap)
@@ -87,7 +78,7 @@ var hist = d3.histogram()
   .domain(xscale.domain())
   .thresholds(10);
 
-bins = hist(frogs);
+var bins = hist(frogs);
 
 histPlot
   .selectAll("rect")
@@ -99,3 +90,22 @@ histPlot
 		  return "translate(" + xscale(d.x0 - 1) + "," + yscale(d.length) + ")"; })
     .attr("fill", frogGreen);
 
+// Add interactivity
+d3.select('#progressFrogsButton')
+  .on('click', function() {
+    d3.event.preventDefault();
+    hops = getHops();
+    updateFrogs(hops);
+    bins = hist(frogs);
+
+    pointPlot.selectAll(".dot").transition()
+      .attr("cx", xmap)
+      .attr("cy", ymap);
+
+    histPlot.selectAll("rect")
+      .data(bins)
+      .transition()
+      .attr("height", function(d) {return height - yscale(d.length);})
+      .attr("transform", function(d) {
+		    return "translate(" + xscale(d.x0 - 1) + "," + yscale(d.length) + ")"; })
+  });
