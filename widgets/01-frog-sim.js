@@ -1,10 +1,12 @@
+var frogGreen = "#7EC850";
+
 // Generating data
 var frogs = [];
 
 resetFrogs = function() {
   frogs = [];
   for(i=0; i<50; i++) {
-    frogs.push({x:0, y:i});
+    frogs.push({x:0, y:i+1});
   }
   return frogs;
 };
@@ -25,6 +27,14 @@ updateFrogs = function(frogs, hops) {
 };
 
 frogs = resetFrogs();
+hops = getHops();
+frogs = updateFrogs(frogs, hops);
+hops = getHops();
+frogs = updateFrogs(frogs, hops);
+hops = getHops();
+frogs = updateFrogs(frogs, hops);
+hops = getHops();
+frogs = updateFrogs(frogs, hops);
 
 // Set up margin
 const margin = {top: 5, bottom: 30, left: 35, right: 20};
@@ -37,7 +47,7 @@ const pointPlot = svg.append('g')
 
 const xscale = d3.scaleLinear()
   .domain([-15, 15])
-  .range([0, width/2]);
+  .range([0, (width/2) - margin.left]);
 
 const yscale = d3.scaleLinear()
   .domain([0, frogs.length])
@@ -59,6 +69,33 @@ var ymap = function(d) { return yscale(yvalue(d));};
 pointPlot.selectAll(".dot")
   .data(frogs)
   .enter().append("circle")
-  .attr("r", 2)
+  .attr("fill", frogGreen)
+  .attr("r", 3.5)
   .attr("cx", xmap)
   .attr("cy", ymap);
+
+// Set up plot area for histogram
+const histPlot = svg.append('g')
+  .attr('transform', `translate(${(width / 2) + margin.left}, ${margin.top})`);
+
+histPlot.append('g').attr('transform',`translate(0,${height})`).call(xaxis);
+histPlot.append('g').call(yaxis);
+
+// Add hist bars
+var hist = d3.histogram()
+  .value((d) => {return d.x;})
+  .domain(xscale.domain())
+  .thresholds(10);
+
+bins = hist(frogs);
+
+histPlot
+  .selectAll("rect")
+  .data(bins)
+  .enter().append("rect")
+    .attr("width", function(d) {return xscale(d.x1) - xscale(d.x0) - 1;})
+    .attr("height", function(d) {return height - yscale(d.length);})
+    .attr("transform", function(d) {
+		  return "translate(" + xscale(d.x0 - 1) + "," + yscale(d.length) + ")"; })
+    .attr("fill", frogGreen);
+
