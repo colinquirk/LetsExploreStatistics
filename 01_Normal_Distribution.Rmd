@@ -8,8 +8,6 @@ output:
 
 # Let's Explore the Normal Distribution
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.1/jstat.js"></script>
-
 ```{r setup, include=FALSE}
 library(knitr)
 library(r2d3)
@@ -22,6 +20,17 @@ opts_chunk$set(echo = FALSE)
 The normal or Gaussian distribution is extremely important as it shows up all the time in nature. The normal distribution is controlled by two parameters, a mean μ and a standard deviation σ. The standard normal is defined as a normal distribution with μ=0 and σ=1. The importance of this special case will be discussed towards the end of this chapter, but intuitively you can think of every other normal distribution as a mutation of the standard normal (where the mutation is defined by μ and σ).
 
 You probably have explored the normal distribution before. Still, this is a great opportunity for you to play around with a widget in the context of this book. Below, you can adjust the parameters of the normal distribution and compare it to the standard normal.
+
+<div id="standardNormalForm">
+  <form>
+    <input id="meanSlider" class="slider" type="range">
+    <label id="meanSliderLabel" for="meanSlider">Mean: 2</label>
+  </form>
+  <form>
+    <input id="sdSlider" class="slider" type="range">
+    <label id="sdSliderLabel" for="sdSlider">Sd: 3.5</label>
+  </form>
+</div>
 
 ```{r normal_parameters}
 r2d3(script="widgets/01-normal_parameters.js", width = 500, height = 400)
