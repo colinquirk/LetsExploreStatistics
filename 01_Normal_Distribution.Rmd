@@ -16,10 +16,9 @@ library(htmlwidgets)
 opts_chunk$set(echo = FALSE)
 ```
 
-
 The normal or Gaussian distribution is extremely important as it shows up all the time in nature. It is controlled by two parameters, a mean μ and a standard deviation σ. The standard normal is defined as a normal distribution with μ=0 and σ=1. The importance of this special case will be discussed towards the end of this chapter, but intuitively you can think of every other normal distribution as a mutation of the standard normal (where the mutation is defined by μ and σ).
 
-You probably have explored the normal distribution before. Still, this is a great opportunity for you to play around with a widget in the context of this book. Below, you can adjust the parameters of the normal distribution and compare it to the standard normal.
+You probably have explored the normal distribution before. Still, this is a great opportunity for you to play around with a widget in the context of this book. Below, you can adjust the parameters of the normal distribution and compare it to the standard normal. If you are on a mobile device, you will need to request the desktop version of the site in order to be able to view the widget.
 
 <div id="standardNormalForm">
   <form>
@@ -38,7 +37,7 @@ r2d3(script="widgets/01-normal-parameters.js", width = 500, height = 400)
 ```
 </center>
 
-There's a few things that hopefully stick out after playing around with the parameters of the normal distribution. The first is that the mean shifts the distribution along the x axis. In contrast, the standard deviation affects the shape such that the larger the σ, the wider the shape. An important idea here is that the parameters are totally independent from each other. Knowing the position tells you nothing about the shape and vice versa.
+There's a few things that hopefully stick out after playing around with the parameters of the normal distribution. The first is that the mean shifts the distribution along the x axis. In contrast, the standard deviation affects the shape such that the larger the σ, the wider the shape. One important idea here is that the parameters are totally independent from each other. Knowing the position tells you nothing about the shape and vice versa.
 
 ## Why is the Normal Distribution so Common?
 
@@ -56,12 +55,49 @@ r2d3(script="widgets/01-frog-sim.js", width = 800, height = 500)
 
 </center>
 
-You might be surprised to see how quickly the normal distribution appears. Why is this? Let's consider the moment in time after each frog has made 8 random decisions. Possible values for the frogs' positions vary from -8 to 8, however it is very unlikely that a frog will reach the extremes. For example, to reach a value of 8, a frog would need to hop right (a $1/3$ chance) 8 total times. Basic probability tells us that the odds of this happening are $(1/3)^8$ i.e. a `r round((1/3)^8*100, digits=4)`% chance. Contrast this with the many different paths to end up at 0. A frog could choose to remain still for each of 8 decisions, but it could also hop right 4 times and then left 4 times or alternate between left and right, et cetera. Of the $3^8$ possible outcomes, only 1 leads to a value of 8, but 1107 lead to a value of 0. This means that each frog has a `r round((1107/6561) * 100, digits=3)`% chance of ending up at 0. Run the simulation again, but this time check and see if after 8 hops around 170 of the frogs are at point 0.
+You might be surprised to see how quickly an approximately normal distribution appears.^[Note that if you go on for too long you end up with a uniform distribution. This is an artifact caused by the edges of the plot; performing the simulation with a larger number of frogs and for more steps will allow you to approximate the normal distribution more closely.] Why is this? Let's consider the moment in time after each frog has made 8 random decisions. Possible values for the frogs' positions vary from -8 to 8, however it is very unlikely that a given frog will reach the extremes. For example, to reach a value of 8, a frog would need to hop right (a $1/3$ chance) 8 total times. Basic probability tells us that the odds of this happening are $(1/3)^8$ i.e. a `r round((1/3)^8*100, digits=4)`% chance. Contrast this with the many different paths to end up at 0. A frog could choose to remain still for each of 8 decisions, but it could also hop right 4 times and then left 4 times or alternate between left and right, et cetera. Of the $3^8$ possible outcomes, only 1 leads to a value of 8, but (if you count them) 1107 lead to a value of 0. This means that each frog has a `r round((1107/3^8) * 100, digits=1)`% chance of ending up at 0. Run the simulation again, but this time check that around 169 of the 1000 frogs are at 0 after 8 hops.
 
-The normal distribution is observed whenever many small, independent variations are summed together to produce a value.
+Why does the normal distribution arise here? The normal distribution is observed whenever many small, independent variations are summed together to produce a value. Let's take height as an example. You can probably think of a lot of factors that influence height, including big ones such as sex and race. But there are likely many factors like nutrition, amount of sleep, and activity level that all play a small role in determining the height of an adult. In sum, it is more likely for multiple independent variations to cancel out than it is for them all to break in the same direction. For example, to end up at a height of 6'6" you need to have multiple different factors all come together whereas, like with our frogs, there are many ways to end up average. Of course, these examples are not truly random and they are not independent, but in practice these differences are enough to end up with height being approximately normally distributed.
 
+## What is a Distribution Anyway?
 
-```{r}
+Now that we have played around with the normal distribution it is worth thinking a bit about what the normal distribution really is. A distribution provides a mapping between possible outcomes and probabilities for a random variable. The normal distribution describes a relationship for continuous variables such as height, but the same logic applies for discrete variables such as the outcome of a coin flip. All that is required is a relationship between the possible outcomes and the associated probabilities.
 
+## Mathematical Definition of the Normal Distribution
+
+There are two types of formulas that are commonly used to describe distributions: the probability density function (pdf)^[For discrete random variables a probability mass function (pmf) takes the place of the probability density function.] and the cumulative density function (cdf). The probability density function generates the familiar bell curve we associate with the normal distribtution, so we will start there. For the standard normal distribution, the pdf is given by \@ref(eq:normpdf).
+
+\begin{equation}
+\LARGE
+\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}
+(\#eq:normpdf)
+\end{equation}
+
+This function may look somewhat arbitrary, but we will gain some intuition about it shortly. First though, notice that μ and σ are missing as their values are fixed to 0 and 1 respectively. In order to generalize to any normal distribution we simply include these parameters in \@ref(eq:generalnormpdf).
+
+\begin{equation}
+\LARGE
+\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}{(\frac{x-\mu}{\sigma})}^2}
+(\#eq:generalnormpdf)
+\end{equation}
+
+There are plenty of explanations of the derivations of the normal pdf online, but instead play around with the pieces of the formula to try to understand it. Let's start with the exponent from \@ref(eq:normpdf) $e^{-\frac{1}{2}x^2}$ as this is actually the most fundamental part. Here's a plot of just the exponent $-\frac{1}{2}x^2$.
+
+```{r parabola, fig.align='center'}
+x = seq(-5, 5, 0.1)
+y1 = (-1/2) * x^2
+
+plot(x, y1, type='l', xlab='', ylab='')
 ```
 
+As you can see, this is a simple parabola. When we raise $e$ to the power of $-\frac{1}{2}x^2$ we get the following plot.
+
+```{r bell, fig.align='center'}
+y2 = exp((-1/2) * x^2)
+
+plot(x, y2, type='l', xlab='', ylab='')
+```
+
+Taking the exponential of a negative parabola is what gives us the bell curve. However, there is still the issue that the area under the curve must be equal to 1 as the probability of all possible events must be equal to 1. As is, the area under the curve is $2\pi$, so the constant $\frac{1}{2\pi}$ is included. The final thing to explain is the $\frac{1}{2}$ in the exponent, which simply ensures that the variance is equal to 1.
+
+## Properties of the Normal distribution
