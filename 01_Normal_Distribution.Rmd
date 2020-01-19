@@ -13,10 +13,10 @@ library(knitr)
 library(r2d3)
 library(htmlwidgets)
 
-opts_chunk$set(echo = FALSE)
+opts_chunk$set(echo = FALSE, fig.align = "center")
 ```
 
-The normal or Gaussian distribution is extremely important as it shows up all the time in nature. It is controlled by two parameters, a mean μ and a standard deviation σ. The standard normal is defined as a normal distribution with μ=0 and σ=1. The importance of this special case will be discussed towards the end of this chapter, but intuitively you can think of every other normal distribution as a mutation of the standard normal (where the mutation is defined by μ and σ).
+The normal or Gaussian distribution is extremely important in statistics, in part because it shows up all the time in nature. It is controlled by two parameters, a mean μ and a standard deviation σ. The standard normal is defined as a normal distribution with μ = 0 and σ = 1. The importance of this special case will be discussed towards the end of this chapter, but intuitively you can think of every other normal distribution as a mutation of the standard normal (where the mutation is defined by μ and σ).
 
 You probably have explored the normal distribution before. Still, this is a great opportunity for you to play around with a widget in the context of this book. Below, you can adjust the parameters of the normal distribution and compare it to the standard normal. If you are on a mobile device, you will need to request the desktop version of the site in order to be able to view the widget.
 
@@ -41,7 +41,7 @@ There's a few things that hopefully stick out after playing around with the para
 
 ## Why is the Normal Distribution so Common?
 
-The normal distribution is extremely common in nature. In order to demonstrate why this is the case, we will perform a simulation. (The idea for this example came from McElreath's Statistical Rethinking, which I highly recommend you both read and watch in lecture form on youtube). In our example, we will pretend that you are holding a box of 1000 frogs in a long hallway. Unfortunately, you dropped the box and the frogs all fell on the ground in a straight line. Each second, each frog will randomly decide to stay still, hop to the left, or hop to the right. In the widget below, you can progress time with the "Progress" button or reset the simulation with the "Reset" button. Plotted are the physical location of each frog (left) and a histogram of the number of hops away from the starting point each frog is (right). Step through the simulation a few times and observe the results.
+The normal distribution is extremely common in nature. In order to demonstrate why this is the case, we will perform a simulation. (The idea for this example came from McElreath's [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/), which I highly recommend you both read and watch in lecture form on youtube). In our example, we will pretend that you are holding a box of 1000 frogs in a long hallway. Unfortunately, you dropped the box and the frogs all fell on the ground in a straight line. Each second, each frog will randomly decide to stay still, hop to the left, or hop to the right. In the widget below, you can progress time with the "Progress" button or reset the simulation with the "Reset" button. Plotted are the physical location of each frog (left) and a histogram of the number of hops away from the starting point each frog is (right). Step through the simulation a few times and observe the results.
 
 <center>
 ```{r frog_sim}
@@ -63,22 +63,16 @@ Why does the normal distribution arise here? The normal distribution is observed
 
 Now that we have played around with the normal distribution it is worth thinking a bit about what the normal distribution really is. A distribution provides a mapping between possible outcomes and probabilities for a random variable. The normal distribution describes a relationship for continuous variables such as height, but the same logic applies for discrete variables such as the outcome of a coin flip. All that is required is a relationship between the possible outcomes and the associated probabilities.
 
+Working with continuous values is slightly more complicated as the probability of a single real value is 0. If you remember from calculus, the integral of a single point is equal to 0. If you don't have a background with calculus you can think about the problem as "what is the width of a single point?" for which is answer is also 0. This concept isn't really that critical for practical statistics, but it is why when we talk about the probability of a continuous value we must discuss in terms of densities and probabilities over ranges of values.
+
 ## Mathematical Definition of the Normal Distribution
 
-There are two types of formulas that are commonly used to describe distributions: the probability density function (pdf)^[For discrete random variables a probability mass function (pmf) takes the place of the probability density function.] and the cumulative density function (cdf). The probability density function generates the familiar bell curve we associate with the normal distribtution, so we will start there. For the standard normal distribution, the pdf is given by \@ref(eq:normpdf).
+There are two types of formulas that are commonly used to describe distributions: the probability density function (pdf)^[For discrete random variables a probability mass function (pmf) takes the place of the probability density function.] and the cumulative density function (cdf). The probability density function generates the familiar bell curve we associate with the normal distribution, so we will start there. For the standard normal distribution, the pdf is given by \@ref(eq:normpdf).
 
 \begin{equation}
 \LARGE
 \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}
 (\#eq:normpdf)
-\end{equation}
-
-This function may look somewhat arbitrary, but we will gain some intuition about it shortly. First though, notice that μ and σ are missing as their values are fixed to 0 and 1 respectively. In order to generalize to any normal distribution we simply include these parameters in \@ref(eq:generalnormpdf).
-
-\begin{equation}
-\LARGE
-\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}{(\frac{x-\mu}{\sigma})}^2}
-(\#eq:generalnormpdf)
 \end{equation}
 
 There are plenty of explanations of the derivations of the normal pdf online, but instead play around with the pieces of the formula to try to understand it. Let's start with the exponent from \@ref(eq:normpdf) $e^{-\frac{1}{2}x^2}$ as this is actually the most fundamental part. Here's a plot of just the exponent $-\frac{1}{2}x^2$.
@@ -98,6 +92,35 @@ y2 = exp((-1/2) * x^2)
 plot(x, y2, type='l', xlab='', ylab='')
 ```
 
-Taking the exponential of a negative parabola is what gives us the bell curve. However, there is still the issue that the area under the curve must be equal to 1 as the probability of all possible events must be equal to 1. As is, the area under the curve is $2\pi$, so the constant $\frac{1}{2\pi}$ is included. The final thing to explain is the $\frac{1}{2}$ in the exponent, which simply ensures that the variance is equal to 1.
+Taking the exponential of a negative parabola is what gives us the bell curve. However, there is still the issue that the area under the curve must be equal to 1 as the probability of all possible events must be equal to 1. As is, the area under the curve is $2\pi$, so the constant $\frac{1}{2\pi}$ is included^[Note that when x = 0, you end up with $\frac{1}{2\pi}e^0$ or simply $\frac{1}{2\pi}$. The highest point in the standard normal curve comes from this constant.]. The $e$ comes out of the derivation, but it is not critical, the math just works out more cleanly when $e$ is used. The final thing to explain is the $\frac{1}{2}$ in the exponent, which simply ensures that the variance is equal to 1. Now we can plot the entire function.
 
-## Properties of the Normal distribution
+```{r standnorm, fig.align='center'}
+y3 = (1/sqrt(2*pi)) * (exp((-1/2) * x^2))
+
+plot(x, y3, type='l', xlab='', ylab='')
+```
+
+As expected, we get the standard normal curve. In order to generalize to any normal distribution we simply include the parameters μ and σ in \@ref(eq:generalnormpdf).
+
+\begin{equation}
+\LARGE
+\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}{(\frac{x-\mu}{\sigma})}^2}
+(\#eq:generalnormpdf)
+\end{equation}
+
+Notice that σ scales the constant, but that the real action happens in the exponent. The distribution's highest point is shifted by μ, then divided by σ. Let's take a closer look at what happens when we keep μ = 0 and set σ = 2. The exponent becomes $\frac{-1}{2}{(\frac{x}{2})}^2$ which leads to the following plot.
+
+```{r wideparabola}
+y4 = (-1/2) * (x/2)^2
+
+plot(x, y4, type='l', xlab='', ylab='')
+```
+
+We observe a wider version of the parabola we saw previously. This makes sense as the exponent reduces to $-\frac{x^2}{8}$ (as opposed to $-\frac{x^2}{2}$ when σ = 1). The large denominator leads to values closer to 0 for the same values of x. This property is maintained (but flipped) after the value is plugged into $e^{\frac{-1}{2}{(\frac{x}{2})}^2}$. For example, if x = 1 and σ = 1 the expression evaluates to `r round(exp(-(1/2)), digits=2)` but when σ = 2 we get `r round(exp(-(1/8)), digits=2)`. Large values of σ lead to wider parabolas, which in turn lead to wider bell curves. 
+
+### The Normal Distribution's CDF
+
+
+
+
+## Properties of the Normal Distribution
