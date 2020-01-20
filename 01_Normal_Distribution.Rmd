@@ -33,7 +33,7 @@ You probably have explored the normal distribution before. Still, this is a grea
 
 <center>
 ```{r normal_parameters}
-r2d3(script="widgets/01-normal-parameters.js", width = 500, height = 400)
+r2d3(script="widgets/01/normal-parameters.js", width = 500, height = 400)
 ```
 </center>
 
@@ -45,7 +45,7 @@ The normal distribution is extremely common in nature. In order to demonstrate w
 
 <center>
 ```{r frog_sim}
-r2d3(script="widgets/01-frog-sim.js", width = 800, height = 500)
+r2d3(script="widgets/01/frog-sim.js", width = 800, height = 500)
 ```
 
 <form>
@@ -120,6 +120,29 @@ We observe a wider version of the parabola we saw previously. This makes sense a
 
 ### The Normal Distribution's CDF
 
+Now that we have explored the normal distribution's probability density function, we can discuss the cumulative density function. As discussed above, when dealing with probability over continuous values we are primarily interested in probability over a range. For some purposes, it is convenient to think of a distribution in terms of total probability of an event occurring in the range of $-\infty$ to x. This is where the cumulative distribution function comes in. For the standard normal distribution we get the cdf defined in \@ref(eq:standardnormalcdf) which is often denoted as $\Phi$.
+
+\begin{equation}
+\LARGE
+\frac{1}{\sqrt{2\pi}}\int_{-\infty}^x {e^{-t^2/2} dt}
+(\#eq:standardnormalcdf)
+\end{equation}
+
+We won't work as hard to understand the cdf, instead we will just relate it to the pdf. Here is a plot of the standard normal cdf.
+
+```{r normalcdf}
+y5 = pnorm(x, 0, 1)
+
+plot(x, y5, type='l', xlab='', ylab='')
+```
+
+As described, the y axis shows cumulative probability so you will notice that the function is always increasing. Here is a simulation to allow you to explore the normal pdf and cdf simultaneously. 
+
+<center>
+```{r pdfandcdf}
+r2d3(script="widgets/01/norm-pdf-cdf.js", width = 800, height = 500)
+```
+</center>
 
 
 
