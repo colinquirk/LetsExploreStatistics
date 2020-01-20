@@ -140,7 +140,7 @@ As described, the y axis shows cumulative probability so you will notice that th
 
 <center>
 ```{r pdfandcdf}
-r2d3(script="widgets/01/norm-pdf-cdf.js", width = 800, height = 500)
+r2d3(script="widgets/01/norm-pdf-cdf.js", width = 800, height = 400)
 ```
 </center>
 
