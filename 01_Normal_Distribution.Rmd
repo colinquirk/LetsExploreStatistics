@@ -136,7 +136,7 @@ y5 = pnorm(x, 0, 1)
 plot(x, y5, type='l', xlab='', ylab='')
 ```
 
-As described, the y axis shows cumulative probability so you will notice that the function is always increasing. Here is a simulation to allow you to explore the normal pdf and cdf simultaneously. 
+As described, the y axis shows cumulative probability so you will notice that the function is always increasing. Here is a widget to allow you to explore the normal pdf and cdf simultaneously. Click and drag the circles to change the value of x.
 
 <center>
 ```{r pdfandcdf}
@@ -144,6 +144,8 @@ r2d3(script="widgets/01/norm-pdf-cdf.js", width = 800, height = 400)
 ```
 </center>
 
+Hopefully you noticed that the cdf is simply expressing the area under the curve (i.e. the integral from $-\infty$ to x) of the pdf. Let's think about some specific values to help solidify the relationship here. With x = 0, we are at the mean of the standard normal, so values are equally likely to be less than or greater than x. This means that the cdf at x = 0 should be 0.5 as we have accumulated half of the available probability. We also know that at 2 σ above the mean (here that means x = 2) we should have accumulated about 97.5% of the total probability (think about constructing a 95% confidence interval, where we use z = 1.96). Go back to the widget and ensure that these intuitions are correct.
 
+As aluded to above, confidence intervals are one way the normal cdf comes up. In fact, the cdf comes into play any time that you are interested in a probability range. For any two values you can simply subtract the cumulative densities to get the probability of a value occuring within that range. For example, if you are interested in the probability that a person's IQ will fall within 1 σ of the mean, you can subtract the cdf value for x = -1 from the value for x = 1. Estimate this value using the widget^[As you may know, the true value is ~66%.].
 
 ## Properties of the Normal Distribution
