@@ -148,4 +148,32 @@ Hopefully you noticed that the cdf is simply expressing the area under the curve
 
 As aluded to above, confidence intervals are one way the normal cdf comes up. In fact, the cdf comes into play any time that you are interested in a probability range. For any two values you can simply subtract the cumulative densities to get the probability of a value occuring within that range. For example, if you are interested in the probability that a person's IQ will fall within 1 σ of the mean, you can subtract the cdf value for x = -1 from the value for x = 1. Estimate this value using the widget^[As you may know, the true value is ~66%.].
 
-## Properties of the Normal Distribution
+## Working with the Normal Distribution in R
+
+Values of the normal pdf and cdf can be easily accessed using R. As with all distributions, R provides functions for generating density (`dnorm`), cumulative density (`pnorm`) quantile (`qnorm`) and random (`rnorm`) values. By default, μ = 0 and σ = 1, but these values can be changes with the `mean` and `sd` arguments. Below are some examples showing how to use these functions.
+
+```{r dnorm, echo=TRUE}
+dnorm(0)  # Density of the standard normal at x = 0, (1/sqrt(2*pi))
+
+# Useful for generating a normal plot, e.g.
+x = seq(-3, 3, length.out=100)
+y = dnorm(x)
+
+plot(x, y, type='l')
+```
+
+```{r pnorm, echo=TRUE}
+pnorm(0)  # Cumulative density of the standard normal at x = 0
+pnorm(1.96)  # Cumulative density of the standard normal at x = 1.96
+```
+
+```{r qnorm, echo=TRUE}
+qnorm(0.5)  # Value of x at cumulative density = 0.5
+qnorm(0.975)  # Value of x at cumulative density = 0.975
+```
+Notice the relationship between qnorm and pnorm. 
+
+```{r rnorm, echo=TRUE}
+rnorm(10)  # Generates 10 random values from the standard normal
+```
+
