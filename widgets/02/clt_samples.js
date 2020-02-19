@@ -10,7 +10,7 @@ function shuffle(a) {
 
 // Set up data
 var samples = 500;
-var n = 30;
+var n = 8;
 var domainHeight = 300;
 
 var normal_data = [];

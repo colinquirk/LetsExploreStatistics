@@ -1,0 +1,16 @@
+---
+title: "Chapter 3 - Let's Explore Sampling Distributions"
+author: "Colin Quirk"
+output:
+  github_document
+---
+
+# Let's Explore Sampling Distributions
+
+```{r setup, include=FALSE}
+library(knitr)
+library(r2d3)
+library(htmlwidgets)
+
+opts_chunk$set(echo = FALSE, fig.align = "center")
+```

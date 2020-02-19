@@ -15,7 +15,13 @@ library(htmlwidgets)
 opts_chunk$set(echo = FALSE, fig.align = "center")
 ```
 
+The central limit theorem (CLT) describes the property of independent random variables to sum towards a normal distribution regardless of the distribution of the random variables themselves.^[Note that there are actually multiple central limit theorems that all describe slightly different situations mathematically. Here we are simply concerned with the general concept.] Think back to the frog widget from chapter 1. Note that in that simulation, no normal data was generated. Every time you hit the progress button, each frog decided to jump to the left, jump to the right, or stay still. In aggregate, this led to frog position being normally distributed as these random decisions were more likely to cancel out than add together. This is a perfect example of the central limit theorem in action.
+
 ## Why is the Central Limit Theorem Important?
+
+For experimentalists, the CLT is an extremely important concept. For many practical questions, we cannot get measurements for an entire population of interest, so we have to select a sample from which to draw conclusions. But have you ever considered what we know about the relationship between the sample and the population? How can we be confident that the conclusions we draw about the sample generalize across the population? Issues related to proper sampling aside, the central limit theorem allows us to make claims about the distribution of our sample means. We will continue to dive into this idea in the next chapter, but for now let's work on internalizing the concept. 
+
+In the widget below, you can generate populations. The button that you press will determine what distribution this population is generated from. On the right plot, you will see the distribution of means of 500 samples from that population. Simulate a few populations from each of the possible distributions now.
 
 <center>
 ```{r clt_samples}
@@ -27,6 +33,11 @@ r2d3(script="widgets/02/clt_samples.js", width = 800, height = 400)
   <button id='skewDistButton' style='margin: 10px'>Skewed</button>
   <button id='unifDistButton' style='margin: 10px'>Uniform</button>
 </form>
-
 </center>
+
+Regardless of what distribution you choose, notice that the sample means still end up approximately normally distributed. Why is this the case? Consider what would be necessary in order to observe a sample mean of 3 when our population is uniform. As 3 is the largest possible value in our population, each of our sample values would need to be 3 for us to observe a sample mean of 3. Sounding familiar? This is the exact same logic we used when we tried to understand the frog simulation from chapter 1. The common idea here is that there are fewer paths to extreme values than there are to middling values, which leads to the middling values being observed more often.
+
+## The Law of Large Numbers
+
+## Regression to the Mean
 
