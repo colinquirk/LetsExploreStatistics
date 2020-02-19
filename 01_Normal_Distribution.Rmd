@@ -1,7 +1,6 @@
 ---
 title: "Chapter 1 - Let's Explore the Normal Distribution"
 author: "Colin Quirk"
-date: "`r format(Sys.Date())`"
 output:
   github_document
 ---
