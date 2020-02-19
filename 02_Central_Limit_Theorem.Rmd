@@ -21,5 +21,12 @@ opts_chunk$set(echo = FALSE, fig.align = "center")
 ```{r clt_samples}
 r2d3(script="widgets/02/clt_samples.js", width = 800, height = 400)
 ```
+
+<form>
+  <button id='normalDistButton' style='margin: 10px'>Normal</button>
+  <button id='skewDistButton' style='margin: 10px'>Skewed</button>
+  <button id='unifDistButton' style='margin: 10px'>Uniform</button>
+</form>
+
 </center>
 
