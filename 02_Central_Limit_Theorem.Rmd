@@ -1,0 +1,25 @@
+---
+title: "Chapter 2 - Let's Explore the Central Limit Theorem"
+author: "Colin Quirk"
+output:
+  github_document
+---
+
+# Let's Explore the Central Limit Theorem
+
+```{r setup, include=FALSE}
+library(knitr)
+library(r2d3)
+library(htmlwidgets)
+
+opts_chunk$set(echo = FALSE, fig.align = "center")
+```
+
+## Why is the Central Limit Theorem Important?
+
+<center>
+```{r clt_samples}
+r2d3(script="widgets/02/clt_samples.js", width = 800, height = 400)
+```
+</center>
+
