@@ -40,6 +40,8 @@ function calculateCutoffs() {
 }
 
 function catagorizeScores() {
+  lowScoresT2 = [];
+  highScoresT2 = [];
   for (i = 0; i < test1.length; i++) {
     if (test1[i].y <= lowCutoff) {
       lowScoresT2.push({ x: i, y: test2[i].y });
@@ -274,13 +276,31 @@ updatePlots = function() {
 
   lowSamplePlot
     .selectAll("rect")
-    .data(test1Bins)
+    .data(lowBins)
     .transition()
     .attr("height", function(d) {
-      return height - yscalePop(d.length);
+      return height / 2 - margin.top - yscaleSamp(d.length);
     })
     .attr("transform", function(d) {
-      return "translate(" + xscale(d.x0) + "," + yscalePop(d.length) + ")";
+      return "translate(" + xscale(d.x0) + "," + yscaleSamp(d.length) + ")";
+    })
+    .attr("fill", "steelblue");
+
+  highSamplePlot
+    .selectAll("rect")
+    .data(highBins)
+    .transition()
+    .attr("height", function(d) {
+      return height / 2 - margin.top - yscaleSamp(d.length);
+    })
+    .attr("transform", function(d) {
+      return (
+        "translate(" +
+        xscale(d.x0) +
+        "," +
+        (yscaleSamp(d.length) + margin.top) +
+        ")"
+      );
     })
     .attr("fill", "steelblue");
 };
@@ -290,7 +310,10 @@ d3.select("#newSampleButton").on("click", function() {
   generateSkills();
   generateTestScores();
   calculateCutoffs();
+  catagorizeScores();
   test1Bins = hist32(test1);
+  lowBins = hist10(lowScoresT2);
+  highBins = hist10(highScoresT2);
 
   updatePlots();
 });
