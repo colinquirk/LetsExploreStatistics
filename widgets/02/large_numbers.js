@@ -24,7 +24,7 @@ var flipCumMean = [];
 
 function flip(n) {
   flips = [];
-  for (i=0; i<samples; i++) {
+  for (i=1; i<samples+1; i++) {
     flips.push({x:i, y:Math.round(Math.random())});
   }
 }
@@ -47,22 +47,27 @@ var height = height - margin.top - margin.bottom;
 const tracePlot = svg.append('g')
   .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-const xscale = d3.scaleLinear()
-  .domain([0, 1000])
+const xscale = d3.scaleLog()
+  .domain([1, 1000])
   .range([0, width - margin.left]);
 
 const yscale = d3.scaleLinear()
   .domain([0, 1])
   .range([height, 0]);
 
-const xaxis = d3.axisBottom().scale(xscale);
+const xaxis = d3.axisBottom()
+  .scale(xscale)
+  .tickFormat(d3.format(",.0f"))
+  .tickValues([1, 2, 3, 4, 5, 7, 10, 15, 20, 30, 50, 100, 200, 500, 1000]);
 const yaxis = d3.axisLeft().scale(yscale);
 
-tracePlot.append('g').attr('transform',`translate(0,${height})`).call(xaxis);
+tracePlot.append('g')
+  .attr('transform',`translate(0,${height})`)
+  .call(xaxis);
 tracePlot.append('g').call(yaxis);
 
 var chanceData = [];
-for (i=0; i<1000; i++) {
+for (i=1; i<1001; i++) {
   chanceData.push({x:i});
 }
 

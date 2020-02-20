@@ -142,7 +142,6 @@ samplePlot
     .attr("fill", "steelblue");
 
 // Add Interactivity
-
 updatePlots = function() {
   samplePlot.selectAll("rect")
   .data(sampBins)

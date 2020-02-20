@@ -1,5 +1,5 @@
 ---
-title: "Chapter 2 - Let's Explore the Central Limit Theorem"
+title: "Chapter 2 - Let's Explore Probability Theorems"
 author: "Colin Quirk"
 output:
   github_document
@@ -15,7 +15,7 @@ library(htmlwidgets)
 opts_chunk$set(echo = FALSE, fig.align = "center")
 ```
 
-The central limit theorem (CLT) describes the property of independent random variables to sum towards a normal distribution regardless of the distribution of the random variables themselves.^[Note that there are actually multiple central limit theorems that all describe slightly different situations mathematically. Here we are simply concerned with the general concept.] Think back to the frog widget from chapter 1. Note that in that simulation, no normal data was generated. Every time you hit the progress button, each frog decided to jump to the left, jump to the right, or stay still. In aggregate, this led to frog position being normally distributed as these random decisions were more likely to cancel out than add together. This is a perfect example of the central limit theorem in action.
+The central limit theorem (CLT) describes the property of independent random variables to sum towards a normal distribution regardless of the distribution of the random variables themselves.^[Note that there are actually multiple central limit theorems that all describe slightly different situations mathematically. Here we are simply concerned with the general concept.] Think back to the frog widget from chapter 1. Note that in that simulation, no normal data was generated. Every time you hit the progress button, each frog decided to jump to the left, jump to the right, or stay still. In aggregate, this led to frog position being approximately normally distributed as these random decisions were more likely to cancel out than add together. This is a perfect example of the central limit theorem in action.
 
 ## Why is the Central Limit Theorem Important?
 
@@ -39,6 +39,10 @@ Regardless of what distribution you choose, notice that the sample means still e
 
 ## The Law of Large Numbers
 
+The law of large numbers is not strictly related to the central limit theorem, but they address similar questions and both ideas will be used in the next chapter. As discussed above, the central limit theorem dictates that the sum of many independent random variables will be normally distributed. We are particularly interested in what this means for samples from a population. If we take many independent random samples we can be confident that the means of these samples will be normally distributed. But what else do we know about this distribution? The law of large numbers will help us understand what the parameters of this normal distribution (μ and σ) will be.
+
+First, let's explore the law of large numbers in a simple case. Below is a widget that shows the result of flipping 1000 coins. We are interested in counting the number of heads. On the x-axis we will plot the flip number.^[A logarithmic scale is used to provide more insight into the early flips.] Along the y-axis, we will plot the cumulative mean, or our average number of heads up to flip x. Because the coin has a 50% probability of landing on heads, we might expect that our average number of heads will be close to 0.5. But how close? Use the plot run button to simulate 1000 coin flips and plot the result. Take some time to study the pattern, then click the button a few more times to generate more runs.
+
 <center>
 ```{r large_numbers}
 r2d3(script="widgets/02/large_numbers.js", width = 800, height = 400)
@@ -50,5 +54,21 @@ r2d3(script="widgets/02/large_numbers.js", width = 800, height = 400)
 </form>
 </center>
 
+There are a few things you hopefully noticed immediately. Early on there is a lot of variation in mean scores. However, as you move towards 1,000 flips, the runs will converge towards the expected probability of 0.5. Let's step through a few values for x. At x = 1 there are only two possible values for y: 0 and 1. For x = 2, there are now 4 possible paths: 2 heads, 2 tails, 1 head and 1 tail, and 1 tail and 1 head. In terms of y, this leads to 3 possible values: 0, 1, and 0.5. Because there are 2 paths to 0.5, it is already more probable than either 0 or 1, but the extremes are still somewhat likely. When we go out to x = 10, it becomes very unlikely for y to be equal to 0 or 1 as it requires 10 coin flips to come up the same way in a row (a 0.5^10 chance or `r round(0.5^10, digits = 4)`). By contrast, there are a large number of paths to end up at 0.5 (again, think back to the frog widget from chapter 1).
+
+After plotting a few runs, you will see that by x = 50, y is usually in the range of 0.3 to 0.7. However, by x = 1000, runs become extremely close to 0.5. This is the fundamental intuition behind the law of large numbers. The more independent random events you have, the less variability there will be around the theoretically expected results. This holds even if we don't know what the theoretical expectation is. For example, if we are interested in determining the likelihood a coin would flip heads because we are worried it is a trick coin, we can be confident that after 1000 flips our average number of heads will be very close to the true probability that coin will flip heads.
+
 ## Regression to the Mean
+
+Finally, as we are already discussing some of the underpinning principles of statistics I'd like to take the time to discuss regression to the mean.
+
+<center>
+```{r regression_to_mean}
+r2d3(script="widgets/02/regression_to_mean.js", width = 800, height = 600)
+```
+
+<form>
+  <button id='newSampleButton' style='margin: 10px'>New Sample</button>
+</form>
+</center>
 
