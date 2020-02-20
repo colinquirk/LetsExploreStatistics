@@ -5,7 +5,7 @@ output:
   github_document
 ---
 
-# Let's Explore the Central Limit Theorem
+# Let's Explore the Probability Theorems
 
 ```{r setup, include=FALSE}
 library(knitr)
