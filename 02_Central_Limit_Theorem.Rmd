@@ -39,5 +39,16 @@ Regardless of what distribution you choose, notice that the sample means still e
 
 ## The Law of Large Numbers
 
+<center>
+```{r large_numbers}
+r2d3(script="widgets/02/large_numbers.js", width = 800, height = 400)
+```
+
+<form>
+  <button id='plotButton' style='margin: 10px'>Plot Run</button>
+  <button id='resetButton' style='margin: 10px'>Reset</button>
+</form>
+</center>
+
 ## Regression to the Mean
 

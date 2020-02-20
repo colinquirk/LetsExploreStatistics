@@ -70,14 +70,14 @@ svg.append("text")
   .attr("y", margin.top)
   .attr("text-anchor", "middle")
   .style("font-size", "16px")
-  .text("Population")
+  .text("Population");
 
 svg.append("text")
   .attr("x", 3 * width / 4 + margin.left / 2)
   .attr("y", margin.top)
   .attr("text-anchor", "middle")
   .style("font-size", "16px")
-  .text("Sample Means")
+  .text("Sample Means");
 
 // Create plots
 const popPlot = svg.append('g')
