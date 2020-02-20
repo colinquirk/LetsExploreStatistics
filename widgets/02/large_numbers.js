@@ -82,7 +82,6 @@ tracePlot.append("path")
   .style("stroke", "black");
 
 // Plot data
-
 function plotData() {
   tracePlot.append("path")
     .datum(flipCumMean)
