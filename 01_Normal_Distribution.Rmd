@@ -48,8 +48,8 @@ r2d3(script="widgets/01/frog-sim.js", width = 800, height = 500)
 ```
 
 <form>
-  <button id='progressFrogsButton'>Progress</button>
-  <button id='resetFrogsButton'>Reset</button>
+  <button id='progressFrogsButton' style='margin: 10px'>Progress</button>
+  <button id='resetFrogsButton' style='margin: 10px'>Reset</button>
 </form>
 
 </center>
