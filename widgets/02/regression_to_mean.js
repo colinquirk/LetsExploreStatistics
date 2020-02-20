@@ -80,7 +80,7 @@ const xaxis = d3.axisBottom().scale(xscale);
 const yaxisPop = d3.axisLeft().scale(yscalePop);
 const yaxisSamp = d3.axisLeft().scale(yscaleSamp);
 
-const popPlot = svg
+const allScoresPlot = svg
   .append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
@@ -95,11 +95,11 @@ const highSamplePlot = svg
     `translate(${width / 2 + margin.left}, ${height / 2 + margin.top})`
   );
 
-popPlot
+allScoresPlot
   .append("g")
   .attr("transform", `translate(0,${height})`)
   .call(xaxis);
-popPlot.append("g").call(yaxisPop);
+allScoresPlot.append("g").call(yaxisPop);
 
 lowSamplePlot
   .append("g")
@@ -161,7 +161,7 @@ var test1Bins = hist32(test1);
 var lowBins = hist10(lowScoresT2);
 var highBins = hist10(highScoresT2);
 
-popPlot
+allScoresPlot
   .selectAll("rect")
   .data(test1Bins)
   .enter()
@@ -177,7 +177,7 @@ popPlot
   })
   .attr("fill", "steelblue");
 
-popPlot
+allScoresPlot
   .selectAll("rect")
   .data(test1Bins)
   .enter()
@@ -194,7 +194,7 @@ popPlot
   .attr("fill", "steelblue");
 
 function drawCutoffs() {
-  popPlot
+  allScoresPlot
     .append("line")
     .attr("x1", xscale(lowCutoff))
     .attr("y1", 0 + margin.top)
@@ -205,7 +205,7 @@ function drawCutoffs() {
     .style("stroke", "black")
     .style("fill", "none");
 
-  popPlot
+  allScoresPlot
     .append("line")
     .attr("x1", xscale(highCutoff))
     .attr("y1", 0 + margin.top)
@@ -258,11 +258,11 @@ highSamplePlot
   .attr("fill", "steelblue");
 
 // Add interactivity
-updatePlots = function() {
+updateRTMPlots = function() {
   svg.selectAll(".cutoffLine").remove();
   drawCutoffs();
 
-  popPlot
+  allScoresPlot
     .selectAll("rect")
     .data(test1Bins)
     .transition()
@@ -315,5 +315,5 @@ d3.select("#newSampleButton").on("click", function() {
   lowBins = hist10(lowScoresT2);
   highBins = hist10(highScoresT2);
 
-  updatePlots();
+  updateRTMPlots();
 });
