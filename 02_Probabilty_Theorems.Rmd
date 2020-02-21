@@ -5,7 +5,7 @@ output:
   github_document
 ---
 
-# Let's Explore the Probability Theorems
+# Let's Explore Probability Theorems
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -15,9 +15,13 @@ library(htmlwidgets)
 opts_chunk$set(echo = FALSE, fig.align = "center")
 ```
 
+In this chapter we will continue to explore some essential properties of probability and being to relate them to experiments. These concepts will come up frequently in other places so here we take some time to gain an intutition about them.
+
+## The Central Limit Theorem
+
 The central limit theorem (CLT) describes the property of independent random variables to sum towards a normal distribution regardless of the distribution of the random variables themselves.^[Note that there are actually multiple central limit theorems that all describe slightly different situations mathematically. Here we are simply concerned with the general concept.] Think back to the frog widget from chapter 1. Note that in that simulation, no normal data was generated. Every time you hit the progress button, each frog decided to jump to the left, jump to the right, or stay still. In aggregate, this led to frog position being approximately normally distributed as these random decisions were more likely to cancel out than add together. This is a perfect example of the central limit theorem in action.
 
-## Why is the Central Limit Theorem Important?
+### Why is the Central Limit Theorem Important?
 
 For experimentalists, the CLT is an extremely important concept. For many practical questions, we cannot get measurements for an entire population of interest, so we have to select a sample from which to draw conclusions. But have you ever considered what we know about the relationship between the sample and the population? How can we be confident that the conclusions we draw about the sample generalize across the population? Issues related to proper sampling aside, the central limit theorem allows us to make claims about the distribution of our sample means. We will continue to dive into this idea in the next chapter, but for now let's work on internalizing the concept. 
 
@@ -60,7 +64,15 @@ After plotting a few runs, you will see that by x = 50, y is usually in the rang
 
 ## Regression to the Mean
 
-Finally, as we are already discussing some of the underpinning principles of statistics I'd like to take the time to discuss regression to the mean.
+Finally, I'd like to take the time to discuss regression to the mean. Whereas the CLT and law of large numbers will come into play immediately in hypothesis testing, regression to the mean is more essential for topics related to experimental design and replication. It is the idea that extreme values tend to be balanced out by less extreme values in the long run. For any process with a random component, an usually good result is partly based on "luck." As an example, an athlete who performs extremely well one year is not likely to repeat their strong performance.
+
+It is important to separate this idea from gambler's fallacy, which occurs when people incorrectly believe that extreme results lead to a change in the underlying probability of the process away from the extreme results that have already been observed. Let's again think about flipping a coin. As discussed above, the odds of getting 10 heads in a row are extremely low. However, after getting 9 heads in a row it is just as likely to get a 10th head as you are to get your 1st tail.
+
+Regression to the mean states that after observing 10 heads in a row, you are more likely to get 5 heads in your next 10 throws than 10 heads (of course, this was true for your first 10 flips as well). This fact means that your average number of heads is likely to regress towards the mean at some point as the initial extreme result was due to a random process that unlikely to continue to produce extreme values.
+
+So why does this matter? Let's look at an example more closely related to performing experiments. Imagine you are interested in improving SAT scores. You have a new study plan that you are sure is going to help increase scores of the lowest performers so you take the students with the lowest scores, have them use your study plan, and take the test again. To make sure that there isn't an effect due to practice with the test, you make the highest scorers take the test again as well with no additional studying.
+
+Here we assume that SAT scores are the result of some internal skill or knowledge ability as well as some randomness due to how well the students slept, if they were tested on words they had studied, or any other random factor you can think of that might change for test 2. Plotted on the left is the population of all student scores with black lines showing the cutoff scores. On the right are the scores on test 2 for both low scorers (top) and high scorers (bottom). The "new students" button will generate a new population for you test.
 
 <center>
 ```{r regression_to_mean}
@@ -68,7 +80,12 @@ r2d3(script="widgets/02/regression_to_mean.js", width = 800, height = 600)
 ```
 
 <form>
-  <button id='newSampleButton' style='margin: 10px'>New Sample</button>
+  <button id='newSampleButton' style='margin: 10px'>New Students</button>
 </form>
 </center>
 
+At first glance, it seems as if your study plan is working! The low performing students seem to be doing better on average. But what is going on with the high performing students? Have they gotten worse? In fact, the simulation doesn't take the study plan into account at all, the improvement of the low performing students and the decline of the high performing students is all due to regression to the mean.
+
+Performance on test 1 was somewhat based on random luck. On test 2, these groups of students ended up closer to mean performance on average. You may even notice that some low performers end up better than average and some high performers end up worse than average if you take a few samples. A better design for this experiment would have been to sample across the entire range of students.
+
+As an aside, this is likely why replications often show smaller effect sizes than the original studies (if they show an effect at all). As researchers we are often excited by large, seemingly meanful results and journals are biased towards publishing them. But because we select for large effects and there is a random component in our experiments these studies are likely to be less impressive when repeated.
