@@ -15,7 +15,7 @@ library(htmlwidgets)
 opts_chunk$set(echo = FALSE, fig.align = "center")
 ```
 
-In this chapter we will continue to explore some essential properties of probability and being to relate them to experiments. These concepts will come up frequently in other places so here we take some time to gain an intutition about them.
+In this chapter we will continue to explore some essential properties of probability and begin to relate them to experiments. These concepts will come up frequently in other places so here we take some time to gain an intutition about them.
 
 ## The Central Limit Theorem
 
