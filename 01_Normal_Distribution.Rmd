@@ -74,7 +74,7 @@ There are two types of formulas that are commonly used to describe distributions
 (\#eq:normpdf)
 \end{equation}
 
-There are plenty of explanations of the derivations of the normal pdf online, but instead play around with the pieces of the formula to try to understand it. Let's start with the exponent from \@ref(eq:normpdf) $e^{-\frac{1}{2}x^2}$ as this is actually the most fundamental part. Here's a plot of just the exponent $-\frac{1}{2}x^2$.
+There are plenty of explanations of the derivations of the normal pdf online, but instead let's play around with the pieces of the formula to try to understand it. Let's start with the exponent from \@ref(eq:normpdf) $e^{-\frac{1}{2}x^2}$ as this is actually the most fundamental part. Here's a plot of just the exponent $-\frac{1}{2}x^2$.
 
 ```{r parabola, fig.align='center'}
 x = seq(-5, 5, 0.1)
