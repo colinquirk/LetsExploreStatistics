@@ -14,3 +14,30 @@ library(htmlwidgets)
 
 opts_chunk$set(echo = FALSE, fig.align = "center")
 ```
+
+In this chapter, we will explore the 3 important distributions you need to understand in order to do hypothesis testing: the population distribution, the sample distribution, and the sampling distribution. Most importantly, we will explore the relationships between them, so that you internalize not only what they are but why they matter.
+
+## What is a Population Distribution?
+
+A population is of course the entire group of individuals that you are interested in studying. This could be anything from all humans to a specific type of cell. The population distribution however, is a bit more specific with its definition because it is specific to the measure you are interested in. So, if you were studying the heights of adult humans your population would be all adults but your population distribution would be all of the heights of every human in centimeters. Many resources don't make this hard distinction, but if you think of population distributions in this way it will help you conceptualize exactly what your population parameters are.
+
+### What is a Population Parameter?
+
+A population parameter is a number that describes the population distribution. In most real world experimental settings, the only population parameter you will likely ever care about is the population mean. You may rarely find yourself interested in a population standard deviation. In some settings, your population may not be described by a normal distribution and so you may be interested in, for example, a difference in counts. Practically speaking though, researchers are normally interested in means and if you understand the following principles in regards to population means it will be easy enough to transfer that knowledge to any other population parameter you are interested in.
+
+## What is a Sample Distribution?
+
+
+### The Relationship between Population Distributions and Sample Distributions
+
+
+## What is a Sampling Distribution?
+
+
+### The Relationship between Sampling Distributions and Sample Distributions
+
+
+### The Relationship between Sampling Distributions and Population Distributions
+
+
+### Standard Error
