@@ -19,17 +19,44 @@ In this chapter, we will explore the 3 important distributions you need to under
 
 ## What is a Population Distribution?
 
-A population is of course the entire group of individuals that you are interested in studying. This could be anything from all humans to a specific type of cell. The population distribution however, is a bit more specific with its definition because it is specific to the measure you are interested in. So, if you were studying the heights of adult humans your population would be all adults but your population distribution would be all of the heights of every human in centimeters. Many resources don't make this hard distinction, but if you think of population distributions in this way it will help you conceptualize exactly what your population parameters are.
+A population is of course the entire group of individuals that you are interested in studying. This could be anything from all humans to a specific type of cell. The population distribution however, is a bit more narrow with its definition because it is specific to the measure you are interested in. So, if you were studying the heights of adult humans your population would be all adults but your population distribution would be all of the heights of every human in centimeters. Many resources don't make this hard distinction, but if you think of population distributions in this way it will help you conceptualize exactly what your population parameters are.
 
 ### What is a Population Parameter?
 
-A population parameter is a number that describes the population distribution. In most real world experimental settings, the only population parameter you will likely ever care about is the population mean. You may rarely find yourself interested in a population standard deviation. In some settings, your population may not be described by a normal distribution and so you may be interested in, for example, a difference in counts. Practically speaking though, researchers are normally interested in means and if you understand the following principles in regards to population means it will be easy enough to transfer that knowledge to any other population parameter you are interested in.
+A population parameter is a number that describes the population distribution. In most real world experimental settings, you will likely be most interested in the population mean if your data is continuous. If you have categorical data you would instead be interested in the percentage of a population for which a certain trait applies. You may end up with binary or count data for which different parameters apply.
+Practically speaking though, researchers are often interested in means and if you understand the following principles in regards to population means it will be easy enough to transfer that knowledge to any other population parameter you are interested in. Note that, although we are interested in the population mean, that does not mean that we are assuming any shape of the population distribution (i.e. you can calculate means no matter what shape a distribution is). We will further discuss assumptions of hypothesis tests in future chapters.
+
+In frequentist statistics (i.e. everything we are going to talk about until we get to Bayesian statistics) population parameters are fixed values. This makes intuitive sense, for example there is a true mean height for all humans. Of course, it is unusual to actually have access to these population parameters. One notable exception is when you work with standardized test data (such as IQ scores) where the mean of the test is designed to be a specific value. However, when you are observing something in nature you will not have access to the population values (if you did, you wouldn't need statistics).
 
 ## What is a Sample Distribution?
 
+Because we don't know population parameters, we have to estimate them using samples. Your sample is the only data you actually get to observe, whereas the other distributions are more like theoretical concepts. Your sample distribution is therefore your observed values from the population distribution you are trying to study.
+
+In some fields, how you collect your sample is incredibly important. For example, when polling about political beliefs you want to be sure that your sample is representative of the entire body of people you are making claims about. A famous example of the importance of sampling comes from the Literary Digest who conducted a poll which oversampled rich Americans, leading to a prediction that Landon would win the US presidency in 1936. In fact, FDR won in a landslide. In other fields, it is expected that you conducted a simple random sample and other sampling methods are rare. As this topic is more about experimental design than statistics per se, I will not go into the different types of sampling here, but if you work with populations with large individual differences (e.g. people) I encourage you to read more into the topic. From here on out, whenever we discuss a sample we will assume it is representative of the population.
+
+Finally, I'd like to touch quickly on outliers. In some fields, it is common practice to remove outliers that are a certain distance from your sample mean (often 2 or 3 sd, or 1.5 IQR). While these methods can be used to identify possible outliers, I strongly recommend you *not* use these methods unilaterally and without thought. If you record 50 data points from a normal distribution you should expect to observe at least one "outlier" (if any point greater than 3 sd from the mean is an outlier) about 12.5% of the time^[You can calculate this simply for any sample size you are interested in. The probability of a single data point being an outlier (greater than 3 sd from the mean) is about 0.0027 (consider how to calculate this using the normal cdf). The odds of having no outliers in your entire sample is then (1 - 0.0027)^n where n is your sample size. Finally, to get the odds of at least one outlier, you simply take 1 minus this value. For example, the odds of at least one outlier in your sample of 50 is 1 - ((1 - 0.0027)^50). You could also simulate this value with something like `mean(replicate(100000, {x = rnorm(50); any(x > 3 | x < -3)}))`]. In my opinion, the only reason to remove an outlier is if you believe that is was not generated by your population distribution. For example, if you had subjects complete a psychological task but one subject slept through it resulting in chance performance, it would of course make sense to remove them from your analysis. But if your task has an average performance of 90% and 1 subject is at 80%, removing them without some additional cause can bias your results. Finally, whenever you are considering removing an outlier, it is best to perform your analysis both with outliers present and removed. Then you can compare results to see if the decision actually matters. If it doesn't, choose whichever method makes more sense, but if it does matter be sure to report that your analysis is heavily influenced by the potential outliers in the data.
 
 ### The Relationship between Population Distributions and Sample Distributions
 
+Your sample distribution will be an approximate representation of your population distribution. This makes logical sense. If your population distribution is a coin with a probability of flipping heads at 50%, you would expect around 50% of your sample to be heads.
+
+<center>
+```{r pop_to_sample}
+r2d3(script="widgets/03/pop_to_samples.js", width = 800, height = 400)
+```
+
+<div>
+  <form>
+    <button id='normalDistButton' style='margin: 10px'>Normal</button>
+    <button id='skewDistButton' style='margin: 10px'>Skewed</button>
+    <button id='unifDistButton' style='margin: 10px'>Uniform</button>
+  </form>
+  <form>
+    <input id="nSlider" class="slider" type="range">
+    <label id="nSliderLabel" for="nSlider">n: 20</label>
+  </form>
+</div>
+</center>
 
 ## What is a Sampling Distribution?
 
