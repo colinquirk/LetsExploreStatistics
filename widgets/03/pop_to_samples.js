@@ -11,7 +11,8 @@ function shuffle(a) {
 // Set up data
 var samples = 5000;
 var n = 20;
-var domainHeight = 1000;
+var popDomainHeight = 1000;
+var sampDomainHeight = 70;
 
 var normal_data = [];
 var skew_data = [];
@@ -89,12 +90,12 @@ const xscale = d3
 
 const yscale_pop = d3
   .scaleLinear()
-  .domain([0, domainHeight])
+  .domain([0, popDomainHeight])
   .range([height, 0]);
 
 const yscale_samp = d3
   .scaleLinear()
-  .domain([0, domainHeight / 25])
+  .domain([0, sampDomainHeight])
   .range([height, 0]);
 
 const xaxis = d3.axisBottom().scale(xscale);
@@ -114,7 +115,7 @@ samplePlot
 samplePlot.append("g").call(yaxis_samp);
 
 // Add population hist
-var hist = d3
+var pop_hist = d3
   .histogram()
   .value(d => {
     return d.x;
@@ -122,7 +123,7 @@ var hist = d3
   .domain(xscale.domain())
   .thresholds(32);
 
-var popBins = hist(normal_data);
+var popBins = pop_hist(normal_data);
 
 popPlot
   .selectAll("rect")
@@ -141,7 +142,15 @@ popPlot
   .attr("fill", "steelblue");
 
 // Add sample hist
-var sampBins = hist(sample_data);
+var samp_hist = d3
+  .histogram()
+  .value(d => {
+    return d.x;
+  })
+  .domain(xscale.domain())
+  .thresholds(16);
+
+var sampBins = samp_hist(sample_data);
 
 samplePlot
   .selectAll("rect")
@@ -191,8 +200,8 @@ d3.select("#normalDistButton").on("click", function() {
   d3.event.preventDefault();
   get_normal_samples();
   get_sample(normal_data, n)
-  popBins = hist(normal_data);
-  sampBins = hist(sample_data);
+  popBins = pop_hist(normal_data);
+  sampBins = samp_hist(sample_data);
 
   updatePlots();
 });
@@ -201,8 +210,8 @@ d3.select("#skewDistButton").on("click", function() {
   d3.event.preventDefault();
   get_skew_samples();
   get_sample(skew_data, n)
-  popBins = hist(skew_data);
-  sampBins = hist(sample_data);
+  popBins = pop_hist(skew_data);
+  sampBins = samp_hist(sample_data);
 
   updatePlots();
 });
@@ -211,8 +220,8 @@ d3.select("#unifDistButton").on("click", function() {
   d3.event.preventDefault();
   get_unif_samples();
   get_sample(unif_data, n)
-  popBins = hist(unif_data);
-  sampBins = hist(sample_data);
+  popBins = pop_hist(unif_data);
+  sampBins = samp_hist(sample_data);
 
   updatePlots();
 });

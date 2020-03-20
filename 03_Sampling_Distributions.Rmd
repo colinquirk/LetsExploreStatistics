@@ -38,7 +38,7 @@ Finally, I'd like to touch quickly on outliers. In some fields, it is common pra
 
 ### The Relationship between Population Distributions and Sample Distributions
 
-Your sample distribution will be an approximate representation of your population distribution. This makes logical sense. If your population distribution is a coin with a probability of flipping heads at 50%, you would expect around 50% of your sample to be heads.
+Your sample distribution will be an approximate representation of your population distribution. This makes logical sense. If your population is coin flips your sample must therefore also be binary. Furthermore, if your population distribution has a probability of flipping heads at 50%, you would expect around 50% of your sample to be heads. Below is a widget that will allow you to generate a single sample from a population. Similar to the widget from last chapter, you can control the type of distribution that generates the population. However, you now also have control of the size of the sample that is generated using the slider. Take a moment to explore the effects of different sample sizes on the shape of the sample distribution.
 
 <center>
 ```{r pop_to_sample}
