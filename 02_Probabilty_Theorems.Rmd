@@ -64,7 +64,7 @@ After plotting a few runs, you will see that by x = 50, y is usually in the rang
 
 ## Regression to the Mean
 
-Finally, I'd like to take the time to discuss regression to the mean. Whereas the CLT and law of large numbers will come into play immediately in hypothesis testing, regression to the mean is more essential for topics related to experimental design and replication. It is the idea that extreme values tend to be balanced out by less extreme values in the long run. For any process with a random component, an usually good result is partly based on "luck." As an example, an athlete who performs extremely well one year is not likely to repeat their strong performance.
+Finally, I'd like to take the time to discuss regression to the mean. Whereas the CLT and law of large numbers will come into play immediately in hypothesis testing, regression to the mean is more essential for topics related to experimental design and replication. It is the idea that extreme values tend to be balanced out by less extreme values in the long run. For any process with a random component, an unusually good result is partly based on "luck." As an example, an athlete who performs extremely well one year is not likely to repeat their strong performance.
 
 It is important to separate this idea from gambler's fallacy, which occurs when people incorrectly believe that extreme results lead to a change in the underlying probability of the process away from the extreme results that have already been observed. Let's again think about flipping a coin. As discussed above, the odds of getting 10 heads in a row are extremely low. However, after getting 9 heads in a row it is just as likely to get a 10th head as you are to get your 1st tail.
 
