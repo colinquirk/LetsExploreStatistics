@@ -64,12 +64,30 @@ Hopefully you noticed that as you increase sample size, the sample population st
 
 Probably, the ideas behind population and sample distributions make some intuitive sense to you. Sampling distributions are where people tend to run into trouble, which is unfortunate as they are the most important to understand moving forward (of course, the naming doesn't help things). The sampling distribution is the theoretical distribution of possible values for a sample statistic. Let's return to the coin flipping example. As we have seen previously, it is possible but unlikely to observe a sample with 10/10 heads whereas it is much more likely to observe a sample with 5/10 heads. This is the sort of information that our sampling distribution contains.
 
-Why is the concept of a sampling distribution so important? In frequentist statistics, all of the information about uncertainty in our estimates comes from the information that we know about the sampling distribution^[Considering estimating uncertainty can be thought of as the entire goal of performing a statistical analysis, the sampling distribution is therefore central to basically all of frequentist hypothesis testing.]. Because our sample is from a theoretical sampling distribution, we can work backwards to make claims about the sampling distribution. And, by working backwards from our sampling distribution, we can make claims about the uncertainty in our population parameter estimates.
-
-### The Relationship between Sampling Distributions and Sample Distributions
-
+Why is the concept of a sampling distribution so important? In frequentist statistics, all of the information about uncertainty in our estimates comes from the information that we know about the sampling distribution. Because our sample is from a theoretical sampling distribution, we can work backwards to make claims about the sampling distribution. And, by working backwards from our sampling distribution, we can make claims about the uncertainty in our population parameter estimates.
 
 ### The Relationship between Sampling Distributions and Population Distributions
 
+
+### The Relationship between Sampling Distributions and Sample Distributions
+
+Most of the time in statistics, we are dealing with a single sample^[Even if data is coming from multiple different places, you would normally still treat it as a single sample and include a factor or use clusters to account for the differences.]. Without the probability theorems discussed in the last chapter, we would not be able to make any statements about the sampling distribution. Luckily, thanks to the central limit theorem we know that our sampling distribution of the mean will be normal. And thanks to the law of large numbers, we know that as our n increases, the variation around the population mean will decrease. We will discuss this more later, but for now let's look at another widget.
+
+<center>
+```{r sample_to_sampling}
+r2d3(script="widgets/03/sample_to_sampling.js", width = 800, height = 400)
+```
+
+<div>
+  <form>
+    <input id="nSlider2" class="slider" type="range">
+    <label id="nSliderLabel2" for="nSlider2">n: 20</label>
+  </form>
+  <form>
+    <input id="sdSlider" class="slider" type="range">
+    <label id="sdSliderLabel" for="sdSlider">sd: 1</label>
+  </form>
+</div>
+</center>
 
 ### Standard Error
