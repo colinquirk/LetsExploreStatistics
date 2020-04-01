@@ -8,7 +8,7 @@ function mean(values) {
 }
 
 // Set up data
-var numSamples = 250;
+var numSamples = 500;
 var NPerSample = 25;
 var popMean = 0;
 var popSD = 1;
@@ -26,8 +26,8 @@ function get_population() {
 
 function generate_sample_means() {
   sampleMeans = [];
-  temp = [];
   for (idx=0; idx < numSamples; idx++) {
+    temp = [];
     for (j=0; j < NPerSample; j++) {
         temp.push(jStat.normal.sample(popMean, popSD));
     }
@@ -43,8 +43,8 @@ const margin = { top: 15, bottom: 30, left: 40, right: 20 };
 var width = width - margin.left - margin.right;
 var height = height - margin.top - margin.bottom;
 
-var popDomainHeight = 75;
-var samplingDomainHeight = 250;
+var popDomainHeight = 150;
+var samplingDomainHeight = 150;
 
 // Add titles
 svg
@@ -74,7 +74,7 @@ const samplingPlot = svg
 
 const xscale_sampling = d3
   .scaleLinear()
-  .domain([-0.5, 0.5])
+  .domain([-2, 2])
   .range([0, width / 2 - margin.left]);
 
 const xscale_pop = d3
@@ -143,7 +143,7 @@ var sampling_hist = d3
     return d.x;
   })
   .domain(xscale_sampling.domain())
-  .thresholds(16);
+  .thresholds(32);
 
 var sampling_bins = sampling_hist(sampleMeans);
 
@@ -165,25 +165,6 @@ samplingPlot
 
 // Add Interactivity
 update_plots_pts = function() {
-  xscale_sampling.domain([popMean-0.5, popMean+0.5]);
-  const xaxis_sampling = d3.axisBottom().scale(xscale_sampling);
-
-  samplingPlot.selectAll("g").remove();
-
-  samplingPlot
-    .append("g")
-    .attr("transform", `translate(0,${height})`)
-    .call(xaxis_sampling);
-    samplingPlot.append("g").call(yaxis_samping);
-
-  var sampling_hist = d3
-    .histogram()
-    .value(d => {
-      return d.x;
-    })
-    .domain(xscale_sampling.domain())
-    .thresholds(16);
-
   get_population();
   generate_sample_means();
 
