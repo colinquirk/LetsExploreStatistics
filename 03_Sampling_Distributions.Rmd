@@ -58,7 +58,7 @@ r2d3(script="widgets/03/pop_to_samples.js", width = 800, height = 400)
 </div>
 </center>
 
-Hopefully you noticed that as you increase sample size, the sample population starts to look more like the population data. You might be surprised with how poor a representation the sample distribution is at lower set sizes. At n = 20, it is even hard to tell the normal distribution apart from the uniform distribution and it is impossible to tell apart skew in the skewed distribution from random noise. This is not to say that you should never run experiments with sample sizes of 20, as we will see we can learn a lot even from small samples. But one take away is that you should be wary of making conclusions about the shape of your population distribution if your sample size is on the smaller side. I often see questions posted online of researchers worried about the non-normality of their data when it is basically impossible for a sample of that size to come out looking normal. In the next chapters we will look at the assumptions of various tests and what happens when you break them so that you know what rules can be bent and how far. For now, go back up to the widget and determine at what sample size you would feel comfortable making claims about the shape of your population distribution based on a sample you collected.
+Hopefully you noticed that as you increase sample size, the sample population starts to look more like the population data. You might be surprised with how poor a representation the sample distribution is at lower set sizes. At n = 20, it is even hard to tell the normal distribution apart from the uniform distribution and it is impossible to tell apart skew in the skewed distribution from random noise. This is not to say that you should never run experiments with sample sizes of 20, as we will see we can learn a lot even from small samples. But one take away is that you should be wary of making conclusions about the shape of your population distribution if your sample size is on the smaller side. I often see questions posted online of researchers worried about the non-normality of their data when it is basically impossible for a sample of that size to come out looking normal^[At least, in a histogram. QQ plots do a much better job of showing true deviations from normality.]. In the next chapters we will look at the assumptions of various tests and what happens when you break them so that you know what rules can be bent and how far. For now, go back up to the widget and determine at what sample size you would feel comfortable making claims about the shape of your population distribution based on a sample you collected.
 
 ## What is a Sampling Distribution?
 
@@ -68,6 +68,23 @@ Why is the concept of a sampling distribution so important? In frequentist stati
 
 ### The Relationship between Sampling Distributions and Population Distributions
 
+
+<center>
+```{r pop_to_sampling}
+r2d3(script="widgets/03/pop_to_sampling.js", width = 800, height = 400)
+```
+
+<div>
+  <form>
+    <input id="meanSlider" class="slider" type="range">
+    <label id="meanSliderLabel" for="nSlider2">mean: 0</label>
+  </form>
+  <form>
+    <input id="sdSlider" class="slider" type="range">
+    <label id="sdSliderLabel" for="sdSlider">sd: 1</label>
+  </form>
+</div>
+</center>
 
 ### The Relationship between Sampling Distributions and Sample Distributions
 
@@ -84,8 +101,8 @@ r2d3(script="widgets/03/sample_to_sampling.js", width = 800, height = 400)
     <label id="nSliderLabel2" for="nSlider2">n: 20</label>
   </form>
   <form>
-    <input id="sdSlider" class="slider" type="range">
-    <label id="sdSliderLabel" for="sdSlider">sd: 1</label>
+    <input id="sdSlider2" class="slider" type="range">
+    <label id="sdSliderLabel2" for="sdSlider">sd: 1</label>
   </form>
 </div>
 </center>

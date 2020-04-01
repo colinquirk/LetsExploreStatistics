@@ -1,19 +1,10 @@
 //Helpers
-//https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
-function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
 function mean(values) {
-    sum = 0;
-    for(i=0; i < values.length; i++) {
-        sum += values[i];
-    }
-    return sum / values.length
+  sum = 0;
+  for(i=0; i < values.length; i++) {
+      sum = sum + values[i];
+  }
+  return sum / values.length
 }
 
 // Set up data
@@ -213,8 +204,8 @@ on_slider_input = function() {
     sample_n = d3.select("#nSlider2").property("value");
     d3.select("#nSliderLabel2").html(`n: ${sample_n}`);
 
-    sd = d3.select("#sdSlider").property("value");
-    d3.select("#sdSliderLabel").html(`sd: ${sd}`);
+    sd = d3.select("#sdSlider2").property("value");
+    d3.select("#sdSliderLabel2").html(`sd: ${sd}`);
 };
 
 d3.select("#nSlider2")
@@ -223,7 +214,7 @@ d3.select("#nSlider2")
     .attr("min", "10")
     .attr("step", "10");
 
-d3.select("#sdSlider")
+d3.select("#sdSlider2")
     .attr("value", sd)
     .attr("max", "3")
     .attr("min", "1")
@@ -233,7 +224,7 @@ d3.select("#nSlider2")
     .on("input", on_slider_input)
     .on("change", update_plots);
 
-d3.select("#sdSlider")
+d3.select("#sdSlider2")
     .on("input", on_slider_input)
     .on("change", update_plots);
 
